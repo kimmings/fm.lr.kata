@@ -1,10 +1,7 @@
-import { find, propEq, pluck, filter } from 'ramda';
+import { pluck, filter } from 'ramda';
 import { filterHotels } from '../utils/filterHotels';
-
-const toggleActive = (what, list) => {
-    const found = find(propEq('name', what.name))(list);
-    found.active = !found.active;
-}
+import { orderHotels } from '../utils/orderHotels';
+import { toggleActive } from '../utils/toggleActive';
 
 export function reducers(state, action) {
     let hotels = state.hotels.slice();
@@ -19,9 +16,13 @@ export function reducers(state, action) {
                 filters,
                 filteredHotels
             }
-        case 'ORDER_HOTELS':    
+        case 'ORDER_HOTELS':  
+            hotels = state.filteredHotels.slice()
+            const orderedHotels = orderHotels(hotels, action.payload);
             return {
                 ...state,
+                orderBy: action.payload,
+                filteredHotels: orderedHotels
             };
         default:
             return state

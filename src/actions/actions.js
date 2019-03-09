@@ -5,3 +5,9 @@ export function addFilter(filter) {
       }
 }
 
+export function orderBy(order) {
+  return { 
+    type: 'ORDER_HOTELS',
+    payload: order
+  }
+}
