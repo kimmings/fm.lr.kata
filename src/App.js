@@ -1,28 +1,23 @@
 import React, { Component } from 'react';
-import './App.css';
+import {connect} from 'react-redux';
+import Header from './components/Header';
 import Table from 'react-bootstrap/Table';
 import FilterOptions from './components/FilterOptions';
-import { getUniqueFilters } from './utils/getFilterOptions';
-import data from './__data';
-
-const filterOpts = getUniqueFilters(data);
+import { addFilter } from './actions/actions';
 
 class App extends Component {
   setFilters(what) { 
-    filterOpts.map(f => {
-      if(f.name === what.name){ 
-        f.active = !f.active;
-        console.log(f);
-      }
-    });
-   }
+    this.props.addFilter(what);
+  }
 
   render() {
+    const { filterData, filteredHotels } = this.props;
     return (
       <>
-        <header className="header">LateRooms</header>
+        <Header />
         <section>
-            <FilterOptions data={filterOpts} setFilters={ this.setFilters.bind(this)} />
+            <FilterOptions data={filterData} setFilters={ this.setFilters.bind(this)} />
+
             <Table striped bordered hover responsive>
             <thead>
             <tr>
@@ -32,7 +27,7 @@ class App extends Component {
             </tr>
             </thead>
             <tbody>
-            { data.map(hotel => {
+            { filteredHotels.map(hotel => {
                 const { name, starRating, facilities } =  hotel;
                 return (
                     <tr key={name}>
@@ -51,4 +46,16 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = {
+  addFilter: addFilter
+}
+
+const mapStateToProps = state => {
+  return {
+      hotels: state.hotels,
+      filterData: state.filters,
+      filteredHotels: state.filteredHotels
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
