@@ -10,7 +10,7 @@ export function reducers(state, action) {
             const filters = state.filters.slice();
             toggleActive(action.payload, filters);
             const filterNames = pluck('name', filter(n => n.active, filters));
-            const filteredHotels = filterHotels(hotels, filterNames);
+            const filteredHotels = orderHotels(filterHotels(hotels, filterNames), state.orderBy);
             return {
                 ...state,
                 filters,
