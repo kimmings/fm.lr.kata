@@ -10,8 +10,20 @@ class App extends Component {
     this.props.addFilter(what);
   }
 
+  renderHotel( hotel ) {
+    const { name, starRating, facilities } =  hotel;
+    return (
+        <tr key={name}>
+        <td>{name}</td>
+        <td>{starRating}</td>
+        <td>{facilities.join(', ')}</td>
+        </tr>
+    );
+  }
+
   render() {
     const { filterData, filteredHotels } = this.props;
+
     return (
       <>
         <Header />
@@ -27,17 +39,7 @@ class App extends Component {
             </tr>
             </thead>
             <tbody>
-            { filteredHotels.map(hotel => {
-                const { name, starRating, facilities } =  hotel;
-                return (
-                    <tr key={name}>
-                    <td>{name}</td>
-                    <td>{starRating}</td>
-                    <td>{facilities.join(', ')}</td>
-                    </tr>
-                );
-
-            }) }
+            { filteredHotels.map(this.renderHotel) }
             </tbody>
             </Table>
           </section>
