@@ -1,9 +1,12 @@
 import React from 'react';
-import {Container, Row, Col, Badge} from 'react-bootstrap';
+import {Container, Row, Col} from 'react-bootstrap';
+import FilterOption from './FilterOption';
+import './FilterOptions.css';
 
 export default props => {
     const renderOptions =  options => options.map(option => {
-        return (<Badge variant="primary" key={option.name}>{option.name}</Badge>)
+        const variant = option.active? 'primary':'secondary';
+        return (<FilterOption variant={variant} clickFn={props.setFilters} key={option.name} option={option}/>)
     });
 
     return(
