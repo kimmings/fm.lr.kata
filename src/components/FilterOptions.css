@@ -3,6 +3,10 @@
     cursor: pointer;
 }
 
+.badge-primary {
+    background-color: #410887;
+}
+
 .badge-secondary {
     opacity: 0.8;
 }

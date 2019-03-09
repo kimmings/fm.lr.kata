@@ -1,8 +1,10 @@
 .header {
-    background-color: #EFEFEF;
+    background-color: #410887;
     display: flex;
     flex-direction: column;
     font-size: 2rem;
     color: #333;
     padding: 10px;
+    border-bottom: 0.25em solid #ff00ff;
+    margin-bottom: 30px;
 }
